@@ -1,0 +1,16 @@
+import { defineConfig } from "vitest/config";
+import path from "node:path";
+
+export default defineConfig({
+  define: {
+    __SITE_URL__: JSON.stringify("https://example.test"),
+  },
+  test: {
+    environment: "node",
+    globals: true,
+    include: ["src/**/*.{test,spec}.{ts,tsx}"],
+  },
+  resolve: {
+    alias: { "@": path.resolve(__dirname, "./src") },
+  },
+});
