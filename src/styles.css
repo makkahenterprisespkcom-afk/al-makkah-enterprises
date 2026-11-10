@@ -1,0 +1,110 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+/*
+ * Design tokens.
+ *
+ * Brand palette:
+ *   Deep Burgundy #701C36 · Dark Burgundy #511326 · Burgundy Accent #8B2947
+ *   Champagne Gold #C6A15B · Soft Gold #D8BD83 · White #FFFFFF · Off White #FAF8F6
+ *   Light Grey #F3F1F0 · Main Text #29252A · Secondary Text #706A6C
+ *
+ * Three tokens are deliberately a shade away from the raw palette so that small text and
+ * form controls meet WCAG AA contrast on the cream/white/sage backgrounds:
+ *   --color-gold-ink       dark gold for small text (raw gold is reserved for accents)
+ *   --color-whatsapp       deep WhatsApp green (white text 5:1; the bright brand green is 3:1)
+ *   --color-input          form-control borders (3:1 non-text contrast)
+ * Raw gold (--color-accent) is still used for fills, rules and text on dark surfaces.
+ */
+@theme {
+  --color-background: #faf8f6;
+  --color-foreground: #29252a;
+  --color-card: #ffffff;
+  --color-card-foreground: #29252a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #29252a;
+  --color-primary: #701c36;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f3f1f0;
+  --color-secondary-foreground: #29252a;
+  --color-muted: #f3f1f0;
+  --color-muted-foreground: #706a6c;
+  --color-accent: #c6a15b;
+  --color-accent-foreground: #511326;
+  --color-gold-ink: #76551d;
+  --color-destructive: #b3261e;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e8e1e2;
+  --color-input: #9a8b8e;
+  --color-ring: #8b2947;
+  --color-footer: #511326;
+  --color-footer-foreground: #ffffff;
+  --color-whatsapp: #14804a;
+  --color-whatsapp-foreground: #ffffff;
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --shadow-card:
+    0 1px 2px rgb(41 37 42 / 5%), 0 10px 28px -14px rgb(81 19 38 / 22%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-padding-top: 7rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: #d8bd83;
+    color: #511326;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  /* Visible keyboard focus everywhere; mouse clicks don't trigger it. */
+  :where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  /* Focus ring on dark surfaces. */
+  .on-dark :where(a, button):focus-visible {
+    outline-color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
